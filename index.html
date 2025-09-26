@@ -4,92 +4,165 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Quiet Moon — 42-Day NICU Pilot</title>
-<meta name="description" content="quietmoon.plnt.earth — A public-domain one-pager for a safe NICU 42-day environment & skin-to-skin pilot.">
+<meta name="description" content="quietmoon.plnt.earth — Public-domain one-pager for a safe NICU 42-day environment & skin-to-skin pilot, with a local-only logger for DIY tests.">
 <meta name="theme-color" content="#0B0F19">
 <style>
   :root{--bg:#0B0F19;--ink:#E7ECF5;--muted:#A8B2C3;--line:#1B2433;
-    --accent:#7CD4FF;--gold:#F7D264;--ok:#A7F3D0;--warn:#FFD7A8;
-    --max:980px;--rad:14px;--pad:20px;}
+        --accent:#7CD4FF;--gold:#F7D264;--ok:#A7F3D0;--warn:#FFD7A8;
+        --max:980px;--rad:14px;--pad:22px}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
   header,main,footer{max-width:var(--max);margin:auto;padding:28px var(--pad)}
   header{padding-top:42px}
   h1,h2,h3{line-height:1.2;margin:0 0 8px}
   h1{font-size:clamp(28px,4vw,40px)}
   h2{font-size:clamp(20px,3vw,26px);margin-top:24px}
-  h3{font-size:18px;margin-top:18px;color:var(--gold)}
+  h3{font-size:18px;margin-top:16px;color:var(--gold)}
   p,li{color:var(--ink)}
   .card{background:#0F1524;border:1px solid var(--line);border-radius:var(--rad);padding:18px 16px;margin:14px 0}
-  .muted{color:var(--muted)}
-  .grid{display:grid;gap:12px}
-  @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
-  .pill{display:inline-block;border:1px solid var(--line);padding:4px 10px;border-radius:999px;margin:4px 6px 0 0;color:var(--muted)}
-  .hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:22px 0}
-  .small{font-size:13px}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .muted{color:var(--muted)} .small{font-size:13px} .mono{font-family:ui-monospace,monospace}
+  .grid{display:grid;gap:12px} @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+  .pill{display:inline-block;border:1px solid var(--line);padding:4px 10px;border-radius:999px;margin:4px 8px 0 0;color:var(--muted)}
+  .callout{border-left:4px solid var(--gold);padding-left:12px}
+  nav{margin:12px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
+  nav a{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#0f1626}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Quiet Moon</h1>
-  <p class="muted">A 42-day quality-improvement pilot: calmer NICU environments & more skin-to-skin, while oxygen targets remain exactly as per unit policy.</p>
+  <p class="muted">A minimal, public-domain plan for a 42-day NICU quality-improvement pilot:
+  calmer sensory environments and more skin-to-skin — while oxygen targets remain exactly per unit policy.</p>
+  <nav aria-label="sections">
+    <a href="#why">Why</a><a href="#scope">Scope</a><a href="#measures">Measures</a>
+    <a href="#logger">Explainable: Logger</a><a href="#safety">Safety Notes</a>
+    <a href="#peer">Peer Review</a><a href="#refs">References</a><a href="#license">License</a>
+  </nav>
 </header>
 
 <main>
-  <section class="card">
-    <h2>Scope</h2>
+  <section id="why" class="card">
+    <h2>Why this exists</h2>
+    <p>Preterm brain development is sensitive to <em>sensory load</em> (noise, light, frequent alarms). Skin-to-skin (“kangaroo care”) helps physiologic regulation.
+    Quiet Moon asks a narrow question: does a simple, policy-compliant bundle help infants spend <strong>more time within your unit’s SpO₂ range</strong> and have <strong>fewer instability events</strong>?</p>
+    <div>
+      <span class="pill">No oxygen experiments</span>
+      <span class="pill">De-identified, QI-style observation</span>
+      <span class="pill">One page + local logger</span>
+    </div>
+  </section>
+
+  <section id="scope" class="card">
+    <h2>Scope (what you do)</h2>
     <div class="grid">
       <div>
         <h3>Environment</h3>
         <ul>
-          <li>Track <strong>noise</strong>, <strong>light</strong>, <strong>alarm counts</strong>.</li>
-          <li>Introduce quiet hours & dimming.</li>
+          <li>Track <strong>noise (dBA)</strong>, <strong>light (lux)</strong>, and <strong>alarm counts</strong> per room/day.</li>
+          <li>Introduce quiet hours, dim lights at night, and reduce non-actionable alarms (per policy).</li>
         </ul>
       </div>
       <div>
         <h3>Care Exposure</h3>
         <ul>
-          <li>Daily <strong>skin-to-skin minutes</strong> (chart-based).</li>
-          <li>Family coaching checklists.</li>
+          <li>Capture daily <strong>skin-to-skin minutes</strong> from routine charting.</li>
+          <li>Offer simple family checklists to support steady minutes.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Measures</h2>
+  <section id="measures" class="card">
+    <h2>Measures & Simple Analysis</h2>
+    <div class="grid">
+      <div>
+        <h3>Primary</h3>
+        <ul>
+          <li>% time <strong>SpO₂ in unit range</strong> (your pathway defines the range).</li>
+          <li><strong>Desaturation/bradycardia events</strong> per 24h.</li>
+        </ul>
+        <h3>Secondary</h3>
+        <ul>
+          <li>Skin-to-skin minutes/day; noise, light, alarm counts.</li>
+          <li>Optional: HRV, sleep state minutes, PIPP scores.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>42-Day cadence</h3>
+        <ol>
+          <li><strong>Weeks 1–2:</strong> Baseline observation.</li>
+          <li><strong>Weeks 3–4:</strong> Bundle on (quiet hours, alarm hygiene, coaching).</li>
+          <li><strong>Weeks 5–6:</strong> Sustain & summarize (one-page memo).</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="logger" class="card">
+    <h2>Explainable: Local Logger</h2>
+    <p class="callout">The logger is a simple, offline tool that lives at <a href="/illumina1/logger.html"><span class="mono">/illumina1/logger.html</span></a>.
+    It stores entries in the browser’s LocalStorage on the device in use; nothing is uploaded or transmitted.</p>
+    <h3>What it records</h3>
     <ul>
-      <li><strong>% time SpO₂ in unit range</strong> (policy-set).</li>
-      <li>Desaturation/brady events per 24h.</li>
-      <li>Noise/light levels, skin-to-skin minutes.</li>
+      <li>Day (1–42), date, and phase (baseline / bundle / sustain).</li>
+      <li>SpO₂ time-in-range %, desat/brady events per 24h.</li>
+      <li>Skin-to-skin minutes, noise (dBA), light (lux), alarm counts.</li>
+    </ul>
+    <h3>What it does not record</h3>
+    <ul>
+      <li><strong>No names, MRNs, dates of birth, or room numbers.</strong></li>
+      <li><strong>No IP collection, cookies, analytics, or network requests.</strong></li>
+    </ul>
+    <h3>Why local-only?</h3>
+    <p>Local storage keeps testing DIY and privacy-preserving. Teams can export CSV/JSON, review offline, and—if approved—merge into their secure systems.</p>
+  </section>
+
+  <section id="safety" class="card">
+    <h2>Safety Notes</h2>
+    <ul>
+      <li><strong>Clinical care unchanged:</strong> SpO₂ target ranges remain exactly per your unit pathway.</li>
+      <li><strong>Minimal-risk QI intent:</strong> observational pre/post; environment and exposure changes are policy-compliant.</li>
+      <li><strong>De-identification required:</strong> aggregate logs only; no protected health information (PHI) enters the page or logger.</li>
+      <li><strong>Pause rule:</strong> if instability events rise for ≥3 consecutive days, stop and review with the neonatologist/RT lead.</li>
+      <li><strong>IRB/QI check:</strong> confirm local requirements before starting.</li>
     </ul>
   </section>
 
-  <section class="card">
-    <h2>42-Day Cadence</h2>
-    <ol>
-      <li><strong>Weeks 1-2:</strong> Baseline observation.</li>
-      <li><strong>Weeks 3-4:</strong> Bundle on (quiet hours, alarm hygiene, coaching).</li>
-      <li><strong>Weeks 5-6:</strong> Sustain & summarize.</li>
-    </ol>
+  <section id="peer" class="card">
+    <h2>Invitation for Peer Review</h2>
+    <p>Quiet Moon is intentionally small. If you’re a clinician, researcher, or parent partner, we welcome critique and improvements.</p>
+    <h3>How to review (short checklist)</h3>
+    <ul>
+      <li>Are the <em>in-range</em> and <em>event</em> measures well defined for your unit?</li>
+      <li>Is the environment bundle feasible without changing clinical pathways?</li>
+      <li>Would any fields be mis-interpreted by staff or families?</li>
+      <li>What confounders (GA, weight, respiratory support) should be annotated in the memo?</li>
+    </ul>
+    <p class="small muted">You may copy this page (CC0/MIT), edit locally, and circulate for comment. If you publish a fork, please note your site and date on the memo.</p>
   </section>
 
-  <section class="card">
-    <h2>Guardrails</h2>
+  <section id="refs" class="card">
+    <h2>Starter References & Reading</h2>
     <ul>
-      <li>Unit oxygen targets unchanged.</li>
-      <li>De-identified, aggregate data only.</li>
-      <li>Pause if events worsen ≥3 days in a row.</li>
+      <li>Neonatal oxygen saturation targeting: major trials/analyses (e.g., SUPPORT, BOOST-II, COT) and unit pathways.</li>
+      <li>American Academy of Pediatrics guidance on NICU environmental noise/light and developmental care.</li>
+      <li>Kangaroo care / skin-to-skin meta-analyses: thermal regulation, stability, and neurodevelopmental signals.</li>
+      <li>Alarm fatigue and alarm hygiene practices in critical care.</li>
     </ul>
+    <p class="small muted">These headings are provided for orientation; teams should follow their institution’s library and policy sources for definitive guidance.</p>
   </section>
 </main>
 
 <footer>
-  <p class="small muted">quietmoon.plnt.earth — Public domain text (CC0 1.0) and MIT-licensed code. No cookies, no trackers.</p>
+  <div id="license" class="small">
+    <strong>License:</strong> Text & figures <em>CC0 1.0 Public Domain</em>. Code <em>MIT License</em>. You may copy, modify, and republish without permission.
+  </div>
+  <div class="small muted" style="margin-top:6px">
+    quietmoon.plnt.earth — No cookies, no trackers, no external assets. Contact: add your preferred email or review link.
+  </div>
 </footer>
 
 </body>
