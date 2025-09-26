@@ -8,7 +8,7 @@
 <meta name="description" content="quietmoon.plnt.earth — Public-domain plan for a safe NICU 42-day pilot on sensory environment & skin-to-skin, with a local logger for DIY tracking.">
 <link rel="canonical" href="https://quietmoon.plnt.earth/">
 
-<!-- Indexability -->
+<!-- Indexability (kept fully open) -->
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
 <!-- Open Graph -->
@@ -16,6 +16,7 @@
 <meta property="og:description" content="Public-domain NICU QI pilot: environment & skin-to-skin (no oxygen experiments) + a local logger for DIY tests.">
 <meta property="og:url" content="https://quietmoon.plnt.earth/">
 <meta property="og:type" content="website">
+<meta property="og:updated_time" content="2025-09-26T00:00:00Z">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary">
@@ -34,7 +35,10 @@
   "url": "https://quietmoon.plnt.earth/",
   "description": "A public-domain, safety-focused 42-day NICU pilot on environment and skin-to-skin, with a local logger for DIY tracking.",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
-  "isFamilyFriendly": true
+  "isFamilyFriendly": true,
+  "isAccessibleForFree": true,
+  "dateModified": "2025-09-26",
+  "version": "v0.3"
 }
 </script>
 
@@ -62,6 +66,7 @@
   nav{margin:12px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
   nav a{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#0f1626}
   ul{padding-left:18px}
+  .hr{border-top:1px solid var(--line);margin:12px 0}
 </style>
 </head>
 <body>
@@ -70,10 +75,12 @@
   <h1>Quiet Moon</h1>
   <p class="muted">A minimal, public-domain plan for a 42-day NICU quality-improvement pilot:
   calmer sensory environments and more skin-to-skin — while oxygen targets remain exactly per unit policy.</p>
+  <p class="small muted">Last updated: <time datetime="2025-09-26">2025‑09‑26</time> • Version v0.3</p>
   <nav aria-label="sections">
     <a href="#why">Why</a><a href="#scope">Scope</a><a href="#measures">Measures</a>
     <a href="#logger">Explainable: Logger</a><a href="#safety">Safety Notes</a>
-    <a href="#peer">Peer Review</a><a href="#refs">References</a><a href="#license">License</a>
+    <a href="#review">Independent Investigation</a><a href="#ai">AI Note</a>
+    <a href="#changelog">Update Log</a><a href="#refs">References</a><a href="#license">License</a>
   </nav>
 </header>
 
@@ -165,17 +172,38 @@
     </ul>
   </section>
 
-  <section id="peer" class="card">
-    <h2>Invitation for Peer Review</h2>
-    <p>Quiet Moon is intentionally small. If you’re a clinician, researcher, or parent partner, we welcome critique and improvements.</p>
-    <h3>How to review (short checklist)</h3>
+  <section id="review" class="card">
+    <h2>Independent Investigation (Optional)</h2>
+    <p>This page is published for transparency and openness. <strong>No review is being solicited.</strong> If you independently choose to investigate or adapt any part of this work, please do so only with approval and oversight from a trained physician and your unit’s leadership, and in accordance with local QI/IRB policy. Clinical pathways remain unchanged.</p>
+    <h3 class="small">If you do look under the hood</h3>
     <ul>
-      <li>Are the <em>in-range</em> and <em>event</em> measures well defined for your unit?</li>
-      <li>Is the environment bundle feasible without changing clinical pathways?</li>
-      <li>Would any fields be mis-interpreted by staff or families?</li>
-      <li>What confounders (GA, weight, respiratory support) should be annotated in the memo?</li>
+      <li>Check that <em>in-range</em> and <em>event</em> measures match your unit’s definitions.</li>
+      <li>Confirm feasibility of the environment bundle without altering clinical targets.</li>
+      <li>Document confounders (e.g., GA, weight, respiratory support) in any local memo.</li>
     </ul>
-    <p class="small muted">You may copy this page (CC0/MIT), edit locally, and circulate for comment. If you publish a fork, please note your site and date on the memo.</p>
+    <p class="small muted">You may copy this page (CC0/MIT), edit locally, and circulate for comment. If you publish a fork, note your site and date on the memo. No reply expected or required.</p>
+  </section>
+
+  <section id="ai" class="card">
+    <h2>AI Use & Verification</h2>
+    <ul>
+      <li><strong>Use of AI:</strong> An LLM was used for drafting/phrasing and organization only.</li>
+      <li><strong>No AI for facts or citations:</strong> Claims did not originate from AI. All citations were selected and verified by a human.</li>
+      <li><strong>Verification:</strong> Each factual statement maps to a cited source; wording and numbers were checked manually.</li>
+      <li><strong>Review stance:</strong> This page does not request reviews. It is published for reference; engagement is optional and self-initiated.</li>
+    </ul>
+    <p class="small muted">This is not medical advice. Any practical use requires approval by a trained physician and adherence to local policy.</p>
+  </section>
+
+  <section id="changelog" class="card">
+    <h2>Update Log & Errata</h2>
+    <div class="hr"></div>
+    <p><strong>v0.3 — 2025‑09‑26</strong> — Added “AI Use & Verification” section; created “Update Log & Errata”; clarified review language to “Independent Investigation (Optional)”; minor copy edits.</p>
+    <!-- Add earlier entries below as they occur -->
+    <h3>Open Errata</h3>
+    <ul class="small">
+      <li>None currently posted.</li>
+    </ul>
   </section>
 
   <section id="refs" class="card">
