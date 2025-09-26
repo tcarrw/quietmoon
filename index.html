@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiet Moon — 42-Day NICU Pilot</title>
+<meta name="description" content="quietmoon.plnt.earth — A public-domain one-pager for a safe NICU 42-day environment & skin-to-skin pilot.">
+<meta name="theme-color" content="#0B0F19">
+<style>
+  :root{--bg:#0B0F19;--ink:#E7ECF5;--muted:#A8B2C3;--line:#1B2433;
+    --accent:#7CD4FF;--gold:#F7D264;--ok:#A7F3D0;--warn:#FFD7A8;
+    --max:980px;--rad:14px;--pad:20px;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  header,main,footer{max-width:var(--max);margin:auto;padding:28px var(--pad)}
+  header{padding-top:42px}
+  h1,h2,h3{line-height:1.2;margin:0 0 8px}
+  h1{font-size:clamp(28px,4vw,40px)}
+  h2{font-size:clamp(20px,3vw,26px);margin-top:24px}
+  h3{font-size:18px;margin-top:18px;color:var(--gold)}
+  p,li{color:var(--ink)}
+  .card{background:#0F1524;border:1px solid var(--line);border-radius:var(--rad);padding:18px 16px;margin:14px 0}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:12px}
+  @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+  .pill{display:inline-block;border:1px solid var(--line);padding:4px 10px;border-radius:999px;margin:4px 6px 0 0;color:var(--muted)}
+  .hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:22px 0}
+  .small{font-size:13px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quiet Moon</h1>
+  <p class="muted">A 42-day quality-improvement pilot: calmer NICU environments & more skin-to-skin, while oxygen targets remain exactly as per unit policy.</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Scope</h2>
+    <div class="grid">
+      <div>
+        <h3>Environment</h3>
+        <ul>
+          <li>Track <strong>noise</strong>, <strong>light</strong>, <strong>alarm counts</strong>.</li>
+          <li>Introduce quiet hours & dimming.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Care Exposure</h3>
+        <ul>
+          <li>Daily <strong>skin-to-skin minutes</strong> (chart-based).</li>
+          <li>Family coaching checklists.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Measures</h2>
+    <ul>
+      <li><strong>% time SpO₂ in unit range</strong> (policy-set).</li>
+      <li>Desaturation/brady events per 24h.</li>
+      <li>Noise/light levels, skin-to-skin minutes.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>42-Day Cadence</h2>
+    <ol>
+      <li><strong>Weeks 1-2:</strong> Baseline observation.</li>
+      <li><strong>Weeks 3-4:</strong> Bundle on (quiet hours, alarm hygiene, coaching).</li>
+      <li><strong>Weeks 5-6:</strong> Sustain & summarize.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Guardrails</h2>
+    <ul>
+      <li>Unit oxygen targets unchanged.</li>
+      <li>De-identified, aggregate data only.</li>
+      <li>Pause if events worsen ≥3 days in a row.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p class="small muted">quietmoon.plnt.earth — Public domain text (CC0 1.0) and MIT-licensed code. No cookies, no trackers.</p>
+</footer>
+
+</body>
+</html>
