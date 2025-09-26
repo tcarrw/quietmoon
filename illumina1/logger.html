@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiet Moon • Illumina 1 Logger</title>
+<meta name="description" content="Local, offline logger for Illumina 1 NICU QI pilot. Exports/imports JSON/CSV.">
+<meta name="theme-color" content="#0B0F19">
+<style>
+  :root{--bg:#0B0F19;--ink:#E7ECF5;--muted:#A8B2C3;--line:#1B2433;--accent:#7CD4FF;--gold:#F7D264;--max:980px;--rad:14px}
+  *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+  header,main,footer{max-width:var(--max);margin:auto;padding:24px}
+  h1{margin:0 0 8px;font-size:clamp(26px,4vw,36px)} h2{margin:18px 0 8px;font-size:clamp(18px,3vw,24px)}
+  .muted{color:var(--muted)} .card{background:#0F1524;border:1px solid var(--line);border-radius:var(--rad);padding:16px;margin:12px 0}
+  label{display:block;font-size:14px;margin:8px 0 2px;color:var(--muted)}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0c1322;color:var(--ink)}
+  .row{display:grid;gap:10px} @media(min-width:760px){.row{grid-template-columns:repeat(3,1fr)}}
+  button{appearance:none;border:1px solid var(--line);background:#0f1626;color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer}
+  button:hover{border-color:#24314a}
+  table{width:100%;border-collapse:collapse} th,td{border-top:1px solid var(--line);padding:10px 8px;text-align:left;font-size:14px}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;margin-right:8px;color:var(--muted)}
+  canvas{width:100%;height:260px;background:#0b1120;border:1px solid var(--line);border-radius:12px}
+  .tiny{font-size:12px} .right{float:right}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Quiet Moon • Illumina 1 Logger</h1>
+  <p class="muted">Local-only logging for a 42-day pre/post bundle pilot. Exports JSON/CSV. No uploads, no trackers.</p>
+  <div>
+    <span class="pill">LocalStorage</span>
+    <span class="pill">CSV/JSON export</span>
+    <span class="pill">Run-chart</span>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>New Entry</h2>
+    <div class="row">
+      <div>
+        <label for="date">Date</label>
+        <input id="date" type="date">
+      </div>
+      <div>
+        <label for="day">Illumina Day (1–42)</label>
+        <input id="day" type="number" min="1" max="42" placeholder="1">
+      </div>
+      <div>
+        <label for="phase">Phase</label>
+        <select id="phase">
+          <option value="baseline">Baseline (Weeks 1–2)</option>
+          <option value="bundle">Bundle On (Weeks 3–4)</option>
+          <option value="sustain">Sustain (Weeks 5–6)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:6px">
+      <div>
+        <label for="spo2">SpO₂ in-range %</label>
+        <input id="spo2" type="number" min="0" max="100" step="1" placeholder="90">
+      </div>
+      <div>
+        <label for="events">Desat/Brady events per 24h</label>
+        <input id="events" type="number" min="0" step="1" placeholder="6">
+      </div>
+      <div>
+        <label for="skin">Skin-to-skin minutes</label>
+        <input id="skin" type="number" min="0" step="1" placeholder="30">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:6px">
+      <div>
+        <label for="noise">Noise (dBA avg)</label>
+        <input id="noise" type="number" min="0" step="0.1" placeholder="45">
+      </div>
+      <div>
+        <label for="light">Light (lux avg)</label>
+        <input id="light" type="number" min="0" step="1" placeholder="60">
+      </div>
+      <div>
+        <label for="alarms">Alarm count</label>
+        <input id="alarms" type="number" min="0" step="1" placeholder="120">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <div>
+        <button id="add">Add / Update Day</button>
+      </div>
+      <div>
+        <button id="clear">Clear All (local)</button>
+      </div>
+      <div>
+        <input id="file" type="file" accept=".json" style="display:none">
+        <button id="importBtn">Import JSON</button>
+      </div>
+    </div>
+    <div style="margin-top:10px">
+      <button id="exportJSON">Export JSON</button>
+      <button id="exportCSV">Export CSV</button>
+      <span class="tiny muted right">Storage key: <span id="ns"></span></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Run-Chart</h2>
+    <canvas id="chart" width="960" height="260" aria-label="Run chart"></canvas>
+    <p class="tiny muted">Lines: SpO₂ in-range % (solid), events/24h (dashed, scaled), skin-to-skin minutes (dotted, scaled). Vertical guides mark phase changes.</p>
+  </section>
+
+  <section class="card">
+    <h2>Entries</h2>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Day</th><th>Date</th><th>Phase</th>
+          <th>SpO₂ %</th><th>Events</th><th>Skin (min)</th>
+          <th>dBA</th><th>Lux</th><th>Alarms</th><th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  <p class="tiny muted">quietmoon.plnt.earth • Text: CC0 1.0 • Code: MIT • Offline/local by design.</p>
+</footer>
+
+<script>
+(function(){
+  var NS = "quietmoon:i1"; // namespace for Illumina 1
+  document.getElementById("ns").textContent = NS;
+
+  function toCSV(rows){
+    var header = ["day","date","phase","spo2","events","skin","noise","light","alarms"];
+    var lines = [header.join(",")];
+    rows.sort(function(a,b){return a.day-b.day}).forEach(function(r){
+      lines.push([r.day,r.date,r.phase,r.spo2,r.events,r.skin,r.noise,r.light,r.alarms].join(","));
+    });
+    return lines.join("\n");
+  }
+  function save(rows){ localStorage.setItem(NS, JSON.stringify(rows)); }
+  function load(){ try{ return JSON.parse(localStorage.getItem(NS)||"[]"); }catch(_){ return []; } }
+
+  function upsert(){
+    var d = parseInt(document.getElementById("day").value,10);
+    if(!(d>=1 && d<=42)) return;
+    var row = {
+      day:d,
+      date: document.getElementById("date").value || "",
+      phase: document.getElementById("phase").value,
+      spo2: parseFloat(document.getElementById("spo2").value)||0,
+      events: parseInt(document.getElementById("events").value,10)||0,
+      skin: parseInt(document.getElementById("skin").value,10)||0,
+      noise: parseFloat(document.getElementById("noise").value)||0,
+      light: parseInt(document.getElementById("light").value,10)||0,
+      alarms: parseInt(document.getElementById("alarms").value,10)||0
+    };
+    var rows = load();
+    var idx = rows.findIndex(function(r){return r.day===d});
+    if(idx>-1) rows[idx]=row; else rows.push(row);
+    save(rows); render();
+  }
+
+  function del(day){
+    var rows = load().filter(function(r){return r.day!==day});
+    save(rows); render();
+  }
+
+  function download(name, text, type){
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], {type:type}));
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  function renderTable(rows){
+    var tb = document.querySelector("#table tbody");
+    tb.innerHTML = "";
+    rows.sort(function(a,b){return a.day-b.day}).forEach(function(r){
+      var tr = document.createElement("tr");
+      ["day","date","phase","spo2","events","skin","noise","light","alarms"].forEach(function(k){
+        var td = document.createElement("td"); td.textContent = r[k]; tr.appendChild(td);
+      });
+      var td = document.createElement("td");
+      var b = document.createElement("button"); b.textContent="Delete";
+      b.onclick = function(){ del(r.day); };
+      td.appendChild(b); tr.appendChild(td); tb.appendChild(tr);
+    });
+  }
+
+  function renderChart(rows){
+    var c = document.getElementById("chart"), ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+    var W=c.width, H=c.height, P=28;
+    ctx.strokeStyle="#2b3752"; ctx.strokeRect(P,P,W-2*P,H-2*P);
+
+    if(!rows.length) return;
+    rows = rows.slice().sort(function(a,b){return a.day-b.day});
+
+    // scales
+    var x = function(day){ return P + (day-1)*(W-2*P)/41; };
+    var yPct = function(v){ var min=70, max=100; v=Math.max(min,Math.min(max,v)); return H-P - (v-min)*(H-2*P)/(max-min); };
+    // scale events and skin to chart height (relative)
+    var evMax = Math.max.apply(null, rows.map(function(r){return r.events||0}).concat([1]));
+    var skMax = Math.max.apply(null, rows.map(function(r){return r.skin||0}).concat([1]));
+    function yScaled(v,max){ return H-P - (v/max)*(H-2*P); }
+
+    // grid / labels
+    ctx.fillStyle="#8fa0be"; ctx.font="12px ui-monospace,monospace";
+    ctx.fillText("SpO2 %", P+6, P-6);
+    ctx.fillText("Day →", W-70, H-6);
+    // phase guides: end of 14, 28
+    [14,28].forEach(function(d){
+      var X=x(d+0.5);
+      ctx.strokeStyle="rgba(255,255,255,.15)"; ctx.beginPath(); ctx.moveTo(X,P); ctx.lineTo(X,H-P); ctx.stroke();
+    });
+
+    // draw series helper
+    function line(series, yfn, dash){
+      ctx.beginPath();
+      if(dash){ ctx.setLineDash(dash); } else { ctx.setLineDash([]); }
+      series.forEach(function(r,i){
+        var X=x(r.day), Y=yfn(r);
+        if(i===0){ ctx.moveTo(X,Y);} else { ctx.lineTo(X,Y); }
+      });
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle="#cfe3ff"; line(rows, function(r){return yPct(r.spo2||0);}, []);         // solid
+    ctx.strokeStyle="#ffd8a0"; line(rows, function(r){return yScaled(r.events||0, evMax);}, [6,4]); // dashed
+    ctx.strokeStyle="#a7f3d0"; line(rows, function(r){return yScaled(r.skin||0, skMax);}, [2,4]);   // dotted
+
+    // legend
+    var lx=P+6, ly=P+14;
+    function leg(txt, dash){
+      ctx.beginPath(); ctx.setLineDash(dash||[]); ctx.moveTo(lx,ly); ctx.lineTo(lx+22,ly); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillText(txt, lx+28, ly+4); ly+=16;
+    }
+    ctx.strokeStyle="#cfe3ff"; ctx.fillStyle="#8fa0be"; leg("SpO2 % (solid)", []);
+    ctx.strokeStyle="#ffd8a0"; ctx.fillStyle="#8fa0be"; leg("Events (dashed, scaled)", [6,4]);
+    ctx.strokeStyle="#a7f3d0"; ctx.fillStyle="#8fa0be"; leg("Skin (dotted, scaled)", [2,4]);
+  }
+
+  function render(){
+    var rows = load();
+    renderTable(rows);
+    renderChart(rows);
+  }
+
+  // default date/day
+  (function seedDate(){
+    var d = new Date(), mm = String(d.getMonth()+1).padStart(2,"0"), dd = String(d.getDate()).padStart(2,"0");
+    document.getElementById("date").value = d.getFullYear()+"-"+mm+"-"+dd;
+    if(!document.getElementById("day").value){ document.getElementById("day").value = Math.min(load().length+1,42); }
+  })();
+
+  // events
+  document.getElementById("add").onclick = upsert;
+  document.getElementById("clear").onclick = function(){
+    if(confirm("Delete all local entries?")){ localStorage.removeItem(NS); render(); }
+  };
+  document.getElementById("exportJSON").onclick = function(){
+    download("quietmoon_i1.json", JSON.stringify(load(), null, 2), "application/json");
+  };
+  document.getElementById("exportCSV").onclick = function(){
+    download("quietmoon_i1.csv", toCSV(load()), "text/csv");
+  };
+  document.getElementById("importBtn").onclick = function(){ document.getElementById("file").click(); };
+  document.getElementById("file").onchange = function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var reader = new FileReader();
+    reader.onload = function(){ try{ var rows=JSON.parse(reader.result); if(Array.isArray(rows)){ save(rows); render(); } }catch(_){ } };
+    reader.readAsText(f);
+    e.target.value = "";
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
