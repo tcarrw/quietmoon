@@ -2,12 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://quietmoon.plnt.earth/</loc>
+    <lastmod>2025-10-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://quietmoon.plnt.earth/illumina1/logger.html</loc>
+    <loc>https://froot.plnt.earth/voice/</loc>
+    <lastmod>2025-10-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.3</priority>
   </url>
 </urlset>
