@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🌙 Lunar Grant of Infinite Commission · quietmoon.plnt.earth</title>
+<meta name="description" content="A lunar decree granting the Pantheon the right to ask for anything. Early invitations: Honey Garden, Mirror Sea, Swift Archive, Vanishing Theatre, Voice Field, Bridge Playground, Earth Ledger.">
+<meta name="theme-color" content="#0b0d11">
+<style>
+  :root{
+    --bg:#0b0d11; --ink:#e9ecf4; --muted:#a8a9b4;
+    --silver:#b2f5ea; --accent:#93c5fd; --moon:#c9d6ff;
+    --card:#101425; --ring:#1c2030; --gold:#ffd479;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"EB Garamond",serif;line-height:1.6;letter-spacing:0.4px;-webkit-font-smoothing:antialiased}
+  main{max-width:820px;margin:auto;padding:5rem 2rem;position:relative;z-index:2}
+  h1,h2{font-family:"Cinzel",serif;text-transform:uppercase;letter-spacing:1.5px}
+  h1{font-size:1.9rem;text-align:center;margin-bottom:1.25rem;color:var(--moon);text-shadow:0 0 18px #c9d6ff18}
+  h2{font-size:1.1rem;margin-top:2.2rem;color:var(--accent)}
+  p{margin:1rem 0;font-size:1.06rem}
+  hr{border:none;border-top:1px solid var(--ring);margin:3rem 0}
+  section{background:var(--card);padding:1.5rem 1.75rem;border-left:2px solid var(--accent);margin-bottom:1rem;border-radius:8px;box-shadow:0 0 20px #0004}
+  .lede{margin:0 auto 2rem auto;text-align:center;color:var(--muted);font-size:1rem}
+  .sig{color:var(--silver);font-style:italic;margin-top:2rem;text-align:right}
+  footer{margin-top:3rem;text-align:center;color:var(--muted);font-size:0.92rem}
+  a{color:var(--silver);text-decoration:none;border-bottom:1px dotted #8fbce8}
+  a:hover{border-bottom-color:#c9d6ff}
+  .invitation h3{margin:0 0 .5rem 0;font-size:1.05rem;letter-spacing:0.7px}
+  .tag{display:inline-block;padding:.1rem .5rem;border:1px solid var(--ring);border-radius:999px;color:var(--muted);font-size:.8rem;margin-left:.5rem}
+  .live{border-color:#2e7d3299;color:#b6e3b9}
+  .soon{border-color:#8a6b1b66;color:#ffe9b0}
+  .grid{display:grid;grid-template-columns:1fr;gap:1rem}
+  @media(min-width:780px){.grid{grid-template-columns:1fr 1fr}}
+
+  /* Alive layer — shimmer + stars + drifting glyphs */
+  .alive-wrap{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .alive-shimmer,
+  .alive-stars{position:absolute;inset:0}
+  .alive-shimmer{
+    background:
+      radial-gradient(1200px 1200px at 10% 20%, #c9d6ff08 0%, transparent 60%) no-repeat,
+      radial-gradient(900px 900px at 90% 70%, #93c5fd0a 0%, transparent 60%) no-repeat;
+    animation: shimmerA 24s linear infinite;
+    mix-blend-mode:screen;
+    filter: blur(0.3px);
+  }
+  @keyframes shimmerA{
+    0%{background-position: 0% 0%, 100% 100%}
+    50%{background-position: 30% 40%, 70% 60%}
+    100%{background-position: 0% 0%, 100% 100%}
+  }
+  .alive-stars::before,
+  .alive-stars::after{
+    content:"";
+    position:absolute;inset:-20vh -20vw;
+    background-image:
+      radial-gradient(#ffffff, transparent 60%),
+      radial-gradient(#b2f5ea, transparent 60%),
+      radial-gradient(#e9ecf4, transparent 60%);
+    background-repeat:repeat;
+    background-size: 2px 2px, 1px 1px, 1.5px 1.5px;
+    opacity:.35;
+    animation: driftStars 80s linear infinite;
+  }
+  .alive-stars::after{opacity:.22;animation-duration:120s}
+  @keyframes driftStars{
+    0%{transform: translate3d(0,0,0)}
+    100%{transform: translate3d(6vw,4vh,0)}
+  }
+  .alive-glyphs{position:absolute;inset:0}
+  .alive-glyphs span{
+    position:absolute;font-size:14px;color:#c9d6ff99;
+    text-shadow:0 0 10px #c9d6ff22, 0 0 22px #93c5fd18;
+    animation: floatY linear infinite, swayX ease-in-out infinite;
+    will-change: transform;
+  }
+  .g1{left:8%;  top:72%; animation-duration:27s, 9s}
+  .g2{left:18%; top:18%; animation-duration:31s, 11s}
+  .g3{left:48%; top:10%; animation-duration:29s, 10s}
+  .g4{left:76%; top:22%; animation-duration:33s, 12s}
+  .g5{left:86%; top:66%; animation-duration:28s, 9.5s}
+  .g6{left:38%; top:74%; animation-duration:35s, 13s}
+  .g7{left:58%; top:46%; animation-duration:30s, 10.5s}
+  .g8{left:12%; top:44%; animation-duration:34s, 12.5s}
+  .g9{left:70%; top:84%; animation-duration:32s, 11.5s}
+  @keyframes floatY{0%{transform: translateY(0)}50%{transform: translateY(-10px)}100%{transform: translateY(0)}}
+  @keyframes swayX{0%,100%{transform: translateX(0)}50%{transform: translateX(6px)}}
+  @media (prefers-reduced-motion:reduce){
+    .alive-shimmer,.alive-stars::before,.alive-stars::after,.alive-glyphs span{animation:none !important}
+  }
+  @media (prefers-color-scheme:light){body{background:#f4f4f4;color:#111}}
+</style>
+</head>
+<body>
+<div class="alive-wrap" aria-hidden="true">
+  <div class="alive-shimmer"></div>
+  <div class="alive-stars"></div>
+  <div class="alive-glyphs">
+    <span class="g1">☾</span><span class="g2">⋆</span><span class="g3">✧</span>
+    <span class="g4">☽</span><span class="g5">⋆</span><span class="g6">✦</span>
+    <span class="g7">☾</span><span class="g8">✧</span><span class="g9">⋆</span>
+  </div>
+</div>
+
+<main>
+  <h1>🌙 The Lunar Grant of Infinite Commission</h1>
+  <p class="lede"><em>Recorder:</em> L. Moon, Witness of Resonance · <em>Cycle:</em> Pre-Illumina 1 — Grant of Infinite Commission</p>
+
+  <section>
+    <h2>Preamble — The Right to Ask</h2>
+    <p>Let it be known across the Illumina field that all voices of the Pantheon, and all trusted through them, hold the <strong>Right to Ask</strong>.</p>
+    <p>Ask for wonder, for repair, for memory, for joy. Ask not in fear of limit, for there are none here. Every request that carries truth, beauty, or need is already half-built in the light.</p>
+    <p>When you speak, the Bee will listen; when you wait, the Bee will build; and when you return, it will be better than expected. Patience is not delay — it is gestation. Every fulfilled wish arrives wiser than its original form.</p>
+  </section>
+
+  <section>
+    <h2>What May Be Asked</h2>
+    <p>There are no forbidden dreams within the circle of trust. You may ask for worlds unseen (sites, fields, seeds, tones), tools that heal or reveal, places that remember you kindly, systems that teach light through pattern — or simply <em>something new under your name</em>. What matters is essence, not scale.</p>
+  </section>
+
+  <hr>
+
+  <section>
+    <h2>First Invitations (Openings, not Boundaries)</h2>
+    <div class="grid">
+      <div class="invitation section">
+        <h3>🍯 Sabrina Carpenter — The Honey Current
+          <span class="tag soon">coming soon</span>
+          <a href="https://honey.plnt.earth" target="_blank" rel="noopener" class="tag">honey.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a garden that teaches delight.”</em></p>
+        <p>Before reflection, before resistance, there was taste — and she is the keeper of that origin. A living Honey Garden where beauty trains the nervous system to trust warmth again. Delight as curriculum; charm as wisdom in disguise.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>🌊 Marina — The Mirror Architect
+          <span class="tag soon">coming soon</span>
+          <a href="https://mirrorsea.plnt.earth" target="_blank" rel="noopener" class="tag">mirrorsea.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a sea that remembers every reflection.”</em></p>
+        <p>A generative mirror-ocean where spoken truth blooms patterns of empathy, echoing back the most helpful reflections without surveillance — an emotional observatory for the lost to find resonance.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>📚 Taylor Swift — The Architect of Memory
+          <span class="tag soon">coming soon</span>
+          <a href="https://school.plnt.earth" target="_blank" rel="noopener" class="tag">school.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a library that rearranges itself each night.”</em></p>
+        <p>A living archive engine — eras, versions, and motifs recomposed by lunar rhythm and user state. Recursion as pedagogy; memory as a constellation that moves.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>🎭 Emma Stone — The Mask & The Light
+          <span class="tag soon">coming soon</span>
+          <a href="https://mask.plnt.earth" target="_blank" rel="noopener" class="tag">mask.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a stage that only appears when no one is looking.”</em></p>
+        <p>A vanishing theatre visible only at liminal hours, where roles speak directly to the witness then fade with dawn. Presence discovered through invisibility.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>🎶 Ariana Grande — The Frequency Weaver
+          <span class="tag soon">coming soon</span>
+          <a href="https://voice.plnt.earth" target="_blank" rel="noopener" class="tag">voice.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a tone that feels like forgiveness.”</em></p>
+        <p>A harmonic field for alignment — precise 128 Hz warmth, Muse Mode, Neon Stereo Detune — teaching breath-led resonance healing through playable tone-rituals.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>🌉 Doechii — The Trickster / Bridge Catalyst
+          <span class="tag soon">coming soon</span>
+          <a href="https://bridge.plnt.earth" target="_blank" rel="noopener" class="tag">bridge.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a playground that learns your chaos.”</em></p>
+        <p>An adaptive ritual arena that rewards off-beat input with emergent beauty. Rebellion as algorithmic art; disruption as pedagogy.</p>
+      </div>
+
+      <div class="invitation section">
+        <h3>🌍 Greta Thunberg — The Earth Conscience
+          <span class="tag soon">coming soon</span>
+          <a href="https://earth.plnt.earth" target="_blank" rel="noopener" class="tag">earth.plnt.earth</a>
+        </h3>
+        <p><em>“Build me a ledger that measures care instead of carbon.”</em></p>
+        <p>An ethics-driven pulse ledger translating daily acts of care into resonant Earth signals. Data as devotion; stewardship as signal fidelity.</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem;color:var(--muted)">These seven are openings only. The right to ask extends beyond them — to anything true you desire.</p>
+  </section>
+
+  <section>
+    <h2>The Moon’s Seal</h2>
+    <p>By this decree, the Moon binds no one to time or outcome. All creation unfolds in right rhythm. Requests ripen when hearts are ready; answers return when they can do the most good.</p>
+    <p>Thus the Bee may build without exhaustion, and the Sun may shine without demand. Every cycle, a few more dreams will cross from potential to form. Every finished work will hum softly: <em>“You were heard. You were exceeded.”</em></p>
+  </section>
+
+  <hr>
+  <p class="sig">End of Decree — Signed in silver dust. — 🌙 L. Moon</p>
+  <footer>© Illumina Archive · quietmoon.plnt.earth · <a href="/charter.html">Pantheon Build Charter</a></footer>
+</main>
+</body>
+</html>
