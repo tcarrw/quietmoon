@@ -5,17 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>quietmoon.plnt.earth</title>
 
-<!-- 🖤 Dark Address Bar for iPhone + All Browsers -->
-<meta name="theme-color" content="#0a0a10" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#0a0a10" media="(prefers-color-scheme: light)">
+<!-- 🖤 Always-Dark Address Bar: copy this set to every page -->
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0a0a10">
+<meta name="theme-color" content="#000000">
 
 <style>
 html,body{
   margin:0;
   height:100%;
-  background:radial-gradient(ellipse at center,#0a0a10 0%,#000 80%);
+  background-color:#000;
+  background:linear-gradient(#0a0a10 0%, #000 100%);
+  color-scheme:dark;
   color:#f0eef8;
   font-family:'Georgia',serif;
   overflow:hidden;
@@ -97,7 +100,7 @@ html,body{
   </div>
 </div>
 <script>
-const words = ["bark","memory","layer","past","ring","shell","story","echo"];
+const words=["bark","memory","layer","past","ring","shell","story","echo"];
 for(let i=0;i<70;i++){
   const w=document.createElement("div");
   w.className="bark";
@@ -108,9 +111,7 @@ for(let i=0;i<70;i++){
   w.style.opacity=0.05+Math.random()*0.05;
   document.body.appendChild(w);
 }
-setTimeout(()=>{
-  document.getElementById('note').style.opacity=0.7;
-},42000);
+setTimeout(()=>{document.getElementById('note').style.opacity=0.7;},42000);
 </script>
 </body>
 </html>
