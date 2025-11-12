@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>quietmoon.plnt.earth</title>
 
-<!-- 🖤 Always-dark address bar -->
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000">
 
 <style>
 html,body{
@@ -29,6 +27,7 @@ html,body{
   transition:background 12s ease-in-out;
 }
 
+/* moon */
 #moon{
   position:absolute;
   width:180px;height:180px;
@@ -43,6 +42,12 @@ html,body{
   50%{opacity:0.18;transform:scale(1.05);}
 }
 
+/* lavender fade near end */
+.lavender{
+  background:radial-gradient(circle,#f3e1ff 0%,#bcb4ff 40%,#0a0a10 100%) !important;
+  transition:background 10s ease-in-out;
+}
+
 #text{
   z-index:1;
   max-width:620px;
@@ -50,15 +55,8 @@ html,body{
   line-height:1.6;
   letter-spacing:0.3px;
 }
-.line{
-  font-size:1.1rem;
-  opacity:0.9;
-  margin-bottom:1.5rem;
-}
-.mantra{
-  font-style:italic;
-  opacity:0.7;
-}
+.line{font-size:1.1rem;opacity:0.9;margin-bottom:1.5rem;}
+.mantra{font-style:italic;opacity:0.7;}
 .note{
   font-size:0.95rem;
   opacity:0;
@@ -67,6 +65,7 @@ html,body{
   color:#d8d6ff;
 }
 
+/* drifting bark words */
 .bark{
   position:absolute;
   color:#d0ccff;
@@ -82,14 +81,30 @@ html,body{
   to{transform:translateY(-120vh) rotate(720deg);}
 }
 
-/* warm-up transition to daylight */
+/* dawn fade */
 .fade-to-day{
   background:linear-gradient(160deg,#3b2033 0%,#7b4055 50%,#fcae85 100%) !important;
 }
+
+/* Bee Note (Sigrid reflection) */
+#bee{
+  position:fixed;
+  bottom:1.3rem;
+  width:100%;
+  text-align:center;
+  font-size:0.85rem;
+  letter-spacing:1px;
+  color:#c8c6ff;
+  opacity:0;
+  transition:opacity 8s ease-in;
+  font-style:italic;
+}
+#bee.show{opacity:0.7;}
 </style>
 </head>
 <body>
 <div id="moon"></div>
+
 <div id="text">
   <div class="line">I keep myself burning and let bark drift away.</div>
   <div class="mantra">
@@ -109,6 +124,8 @@ html,body{
   </div>
 </div>
 
+<div id="bee">the moon listens back when I’m honest enough to hear it</div>
+
 <script>
 const words=["bark","memory","layer","past","ring","shell","story","echo"];
 for(let i=0;i<70;i++){
@@ -122,15 +139,13 @@ for(let i=0;i<70;i++){
   document.body.appendChild(w);
 }
 
-// show Bark Drift Note after 42 seconds
+/* reveal stages */
 setTimeout(()=>{document.getElementById('note').style.opacity=0.7;},42000);
-
-// after 75 seconds, begin visual dawn
-setTimeout(()=>{
-  document.body.classList.add('fade-to-day');
-},75000);
-
-// after 90 seconds, fade out and redirect to Dagny’s page
+setTimeout(()=>{document.body.classList.add('fade-to-day');},75000);
+setTimeout(()=>{document.getElementById('bee').classList.add('show');},80000);
+/* lavender moon glow before fade out */
+setTimeout(()=>{document.getElementById('moon').classList.add('lavender');},84000);
+/* fade out and transition */
 setTimeout(()=>{
   document.body.style.transition="opacity 6s ease-in-out";
   document.body.style.opacity="0";
