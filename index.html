@@ -1,73 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quiet Moon — 42-Day NICU Pilot (Public-Domain)</title>
-<meta name="description" content="Open, inspectable NICU sensory environment pilot: light, sound, temperature, skin-to-skin. DIY logger, no trackers.">
-<link rel="canonical" href="https://quietmoon.plnt.earth/">
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
-<meta property="og:title" content="Quiet Moon — 42-Day NICU Pilot (Public-Domain)">
-<meta property="og:description" content="Open plan with safety notes, errata, and peer-review invitations.">
-<meta property="og:url" content="https://quietmoon.plnt.earth/">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0B0F19">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>quietmoon.plnt.earth</title>
 <style>
-  :root{--bg:#0B0F19;--ink:#E6EAF2;--muted:#A7B0C2;--card:#101728;--line:rgba(230,234,242,.14);--hi:#A4E8FF}
-  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto}
-  .wrap{max-width:900px;margin:0 auto;padding:24px} a{color:var(--hi);text-decoration:none}
-  header h1{margin:0 0 6px;font-size:22px} .sub{color:var(--muted)}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
-  .grid{display:grid;gap:12px} @media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
-  footer{margin-top:24px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:12px}
+html,body{
+  margin:0;
+  height:100%;
+  background:radial-gradient(ellipse at center,#0a0a10 0%,#000 80%);
+  color:#f0eef8;
+  font-family:'Georgia',serif;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+#moon{
+  position:absolute;
+  width:180px;height:180px;
+  border-radius:50%;
+  background:radial-gradient(circle,#e6e4ff 0%,#b3b0ff 40%,#0a0a10 100%);
+  opacity:0.1;
+  filter:blur(60px);
+  animation:glow 12s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{opacity:0.08;transform:scale(1);}
+  50%{opacity:0.18;transform:scale(1.05);}
+}
+#text{
+  z-index:1;
+  max-width:600px;
+  padding:2rem;
+  line-height:1.6;
+  letter-spacing:0.3px;
+}
+.line{
+  font-size:1.1rem;
+  opacity:0.85;
+  margin-bottom:1.5rem;
+}
+.mantra{
+  font-style:italic;
+  opacity:0.7;
+}
+.bark{
+  position:absolute;
+  color:#d0ccff;
+  font-size:0.9rem;
+  opacity:0.08;
+  white-space:nowrap;
+  animation:drift linear infinite;
+  pointer-events:none;
+  user-select:none;
+}
+@keyframes drift{
+  from{transform:translateY(100vh) rotate(0deg);}
+  to{transform:translateY(-120vh) rotate(720deg);}
+}
 </style>
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Quiet Moon — 42-Day NICU Pilot (Public-Domain)</h1>
-    <div class="sub">Safety-first sensory environment notes (open errata). No requests to specific reviewers; anyone may inspect with physician oversight.</div>
-  </header>
-
-  <main>
-    <section class="card">
-      <h2>Open Errata &amp; Safety Notes</h2>
-      <ul>
-        <li>Environment variables (light, sound, temperature) documented and adjustable.</li>
-        <li>DIY logs are local only; no trackers. Stop if discomfort; consult clinicians.</li>
-        <li>Contribute errata via public issue link or email (if you publish one).</li>
-      </ul>
-      <p>Cross-reference: <a href="https://froot.plnt.earth/voice/">Voice &amp; Resonance skill</a> for gentle breath and tone training.</p>
-    </section>
-
-    <section class="card">
-      <h2>Logger (Local-Only, Minimal)</h2>
-      <p>One-line daily reflection — saved only in your browser.</p>
-      <div style="display:grid;gap:10px">
-        <textarea id="qnote" placeholder="One-line safety/comfort note"></textarea>
-        <div>
-          <button id="save">Save</button>
-          <span id="s" style="font-size:12px;color:#A7B0C2;margin-left:8px"></span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    Network: <a href="https://jar.plnt.earth/">Jar</a> • <a href="https://froot.plnt.earth/">Froot</a> • <a href="https://tunes.plnt.earth/">Tunes</a>
-  </footer>
+<div id="moon"></div>
+<div id="text">
+  <div class="line">I keep myself burning and let bark drift away.</div>
+  <div class="mantra">
+    I stay warm in silence.<br>
+    What once protected me can drift.<br>
+    The fire within me does not scream;<br>
+    it hums softly, under silver light.
+  </div>
 </div>
 <script>
-(function(){
-  var key = "quietmoon-log-" + (new Date()).toISOString().slice(0,10);
-  var t = document.getElementById('qnote');
-  var s = document.getElementById('s');
-  var saved = localStorage.getItem(key); if(saved) t.value = saved;
-  document.getElementById('save').addEventListener('click', function(){
-    try{ localStorage.setItem(key, t.value || ""); s.textContent = "Saved"; setTimeout(function(){s.textContent=""},1200); }catch(e){}
-  });
-})();
+const words = ["bark","memory","layer","past","ring","shell","story","echo"];
+for(let i=0;i<70;i++){
+  const w=document.createElement("div");
+  w.className="bark";
+  w.textContent=words[Math.floor(Math.random()*words.length)];
+  w.style.left=Math.random()*100+"vw";
+  w.style.animationDuration=30+Math.random()*30+"s";
+  w.style.fontSize=0.7+Math.random()*1.2+"rem";
+  w.style.opacity=0.05+Math.random()*0.05;
+  document.body.appendChild(w);
+}
 </script>
 </body>
 </html>
