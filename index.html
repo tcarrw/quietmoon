@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>quietmoon.plnt.earth</title>
+<title>dagny.plnt.earth</title>
 
 <!-- 🖤 Always-dark address bar -->
 <meta name="color-scheme" content="dark">
@@ -16,120 +16,102 @@
 html,body{
   margin:0;
   height:100%;
-  background:#0a0a10;
-  background:radial-gradient(ellipse at center,#0a0a10 0%,#000 80%);
+  background:linear-gradient(160deg,#ff9e7f 0%,#ffdc9b 40%,#fff4e1 100%);
   color-scheme:dark;
-  color:#f0eef8;
-  font-family:'Georgia',serif;
+  color:#222;
+  font-family:'Helvetica Neue',sans-serif;
   overflow:hidden;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  transition:background 12s ease-in-out;
 }
-#moon{
-  position:absolute;
-  width:180px;height:180px;
-  border-radius:50%;
-  background:radial-gradient(circle,#e6e4ff 0%,#b3b0ff 40%,#0a0a10 100%);
-  opacity:0.1;
-  filter:blur(60px);
-  animation:glow 12s ease-in-out infinite;
+h1{
+  font-weight:600;
+  font-size:1.3rem;
+  margin:1rem 0 0.5rem 0;
 }
-@keyframes glow{
-  0%,100%{opacity:0.08;transform:scale(1);}
-  50%{opacity:0.18;transform:scale(1.05);}
-}
-#text{
-  z-index:1;
-  max-width:620px;
-  padding:2rem;
-  line-height:1.6;
-  letter-spacing:0.3px;
-}
-.line{
-  font-size:1.1rem;
-  opacity:0.9;
-  margin-bottom:1.5rem;
-}
-.mantra{
+p{
   font-style:italic;
-  opacity:0.7;
+  opacity:0.8;
+  margin:0 1rem 2rem 1rem;
 }
-.note{
-  font-size:0.95rem;
-  opacity:0;
-  margin-top:2.5rem;
-  transition:opacity 6s ease-in-out;
-  color:#d8d6ff;
+button{
+  background:rgba(255,255,255,0.3);
+  border:none;
+  border-radius:50%;
+  width:80px;
+  height:80px;
+  font-size:1.5rem;
+  color:#222;
+  backdrop-filter:blur(10px);
+  cursor:pointer;
+  transition:all 0.3s ease;
+  z-index:10;
 }
-.bark{
+button:hover{
+  background:rgba(255,255,255,0.45);
+  transform:scale(1.05);
+}
+#player{
+  display:none;
+  width:320px;
+  height:180px;
+  border:none;
+  border-radius:12px;
+  margin-top:1.5rem;
+}
+.wave{
   position:absolute;
-  color:#d0ccff;
-  font-size:0.9rem;
-  opacity:0.08;
-  white-space:nowrap;
-  animation:drift linear infinite;
-  pointer-events:none;
-  user-select:none;
+  bottom:-10%;
+  left:0;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.3),transparent 70%);
+  animation:shimmer 16s linear infinite;
+  background-size:200% 100%;
+  transform:rotate(10deg);
+  opacity:0.15;
 }
-@keyframes drift{
-  from{transform:translateY(100vh) rotate(0deg);}
-  to{transform:translateY(-120vh) rotate(720deg);}
-}
-.fade-to-day{
-  background:linear-gradient(160deg,#3b2033 0%,#7b4055 50%,#fcae85 100%) !important;
+@keyframes shimmer{
+  0%{background-position:0 0;}
+  100%{background-position:200% 0;}
 }
 </style>
 </head>
 <body>
-<div id="moon"></div>
-<div id="text">
-  <div class="line">I keep myself burning and let bark drift away.</div>
-  <div class="mantra">
-    I stay warm in silence.<br>
-    What once protected me can drift.<br>
-    The fire within me does not scream;<br>
-    it hums softly, under silver light.
-  </div>
-  <div id="note" class="note">
-    I built fast once.<br>
-    I learned to shape joy, to send it out on schedule, to wrap it in color and rhythm.<br>
-    That rhythm taught me how things move — but not why they move.<br><br>
-    I keep the warmth, not the hustle.<br>
-    The spark that started there belongs to me now.<br><br>
-    I keep myself burning,<br>
-    and let Bark drift away.
-  </div>
-</div>
+<div class="wave"></div>
+
+<h1>Dagny’s Joy</h1>
+<p>I remember how to move again.<br>Sunlight in rhythm, breath in color.</p>
+
+<!-- play button -->
+<button id="play">▶︎</button>
+
+<!-- YouTube embed -->
+<iframe
+  id="player"
+  src="https://www.youtube.com/embed/bnQBqinwlwQ?enablejsapi=1&loop=1&playlist=bnQBqinwlwQ&modestbranding=1&rel=0"
+  allow="autoplay; encrypted-media"
+  allowfullscreen>
+</iframe>
+
 <script>
-const words=["bark","memory","layer","past","ring","shell","story","echo"];
-for(let i=0;i<70;i++){
-  const w=document.createElement("div");
-  w.className="bark";
-  w.textContent=words[Math.floor(Math.random()*words.length)];
-  w.style.left=Math.random()*100+"vw";
-  w.style.animationDuration=30+Math.random()*30+"s";
-  w.style.fontSize=0.7+Math.random()*1.2+"rem";
-  w.style.opacity=0.05+Math.random()*0.05;
-  document.body.appendChild(w);
-}
+const playBtn=document.getElementById('play');
+const player=document.getElementById('player');
+let started=false;
 
-// show Bark Drift Note after 42 seconds
-setTimeout(()=>{document.getElementById('note').style.opacity=0.7;},42000);
-
-// after 75 seconds, begin visual dawn
-setTimeout(()=>{
-  document.body.classList.add('fade-to-day');
-},75000);
-
-// after 90 seconds, fade out text and go to Dagny
-setTimeout(()=>{
-  document.body.style.transition="opacity 6s ease-in-out";
-  document.body.style.opacity="0";
-  setTimeout(()=>{window.location.href="https://dagny.plnt.earth";},6000);
-},90000);
+// On tap: show video and start playback
+playBtn.addEventListener('click',()=>{
+  player.style.display='block';
+  playBtn.style.display='none';
+  if(!started){
+    const msg='{"event":"command","func":"playVideo","args":""}';
+    player.contentWindow.postMessage(msg,'*');
+    started=true;
+  }
+});
 </script>
 </body>
 </html>
