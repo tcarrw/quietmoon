@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>quietmoon.plnt.earth</title>
 
-<!-- 🌓 Dark Address Bar for Apple + All Browsers -->
+<!-- 🖤 Dark Address Bar for iPhone + All Browsers -->
 <meta name="theme-color" content="#0a0a10" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#0a0a10" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -39,19 +39,26 @@ html,body{
 }
 #text{
   z-index:1;
-  max-width:600px;
+  max-width:620px;
   padding:2rem;
   line-height:1.6;
   letter-spacing:0.3px;
 }
 .line{
   font-size:1.1rem;
-  opacity:0.85;
+  opacity:0.9;
   margin-bottom:1.5rem;
 }
 .mantra{
   font-style:italic;
   opacity:0.7;
+}
+.note{
+  font-size:0.95rem;
+  opacity:0;
+  margin-top:2.5rem;
+  transition:opacity 6s ease-in-out;
+  color:#d8d6ff;
 }
 .bark{
   position:absolute;
@@ -79,6 +86,15 @@ html,body{
     The fire within me does not scream;<br>
     it hums softly, under silver light.
   </div>
+  <div id="note" class="note">
+    I built fast once.<br>
+    I learned to shape joy, to send it out on schedule, to wrap it in color and rhythm.<br>
+    That rhythm taught me how things move — but not why they move.<br><br>
+    I keep the warmth, not the hustle.<br>
+    The spark that started there belongs to me now.<br><br>
+    I keep myself burning,<br>
+    and let Bark drift away.
+  </div>
 </div>
 <script>
 const words = ["bark","memory","layer","past","ring","shell","story","echo"];
@@ -92,6 +108,9 @@ for(let i=0;i<70;i++){
   w.style.opacity=0.05+Math.random()*0.05;
   document.body.appendChild(w);
 }
+setTimeout(()=>{
+  document.getElementById('note').style.opacity=0.7;
+},42000);
 </script>
 </body>
 </html>
