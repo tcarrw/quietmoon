@@ -26,42 +26,10 @@ html,body{
   align-items:center;
   justify-content:center;
   text-align:center;
+  position:relative;
 }
-h1{
-  font-weight:600;
-  font-size:1.3rem;
-  margin:1rem 0 0.5rem 0;
-}
-p{
-  font-style:italic;
-  opacity:0.8;
-  margin:0 1rem 2rem 1rem;
-}
-button{
-  background:rgba(255,255,255,0.3);
-  border:none;
-  border-radius:50%;
-  width:80px;
-  height:80px;
-  font-size:1.5rem;
-  color:#222;
-  backdrop-filter:blur(10px);
-  cursor:pointer;
-  transition:all 0.3s ease;
-  z-index:10;
-}
-button:hover{
-  background:rgba(255,255,255,0.45);
-  transform:scale(1.05);
-}
-#player{
-  display:none;
-  width:320px;
-  height:180px;
-  border:none;
-  border-radius:12px;
-  margin-top:1.5rem;
-}
+
+/* gentle shimmer backdrop */
 .wave{
   position:absolute;
   bottom:-10%;
@@ -74,9 +42,47 @@ button:hover{
   transform:rotate(10deg);
   opacity:0.15;
 }
-@keyframes shimmer{
-  0%{background-position:0 0;}
-  100%{background-position:200% 0;}
+@keyframes shimmer{0%{background-position:0 0;}100%{background-position:200% 0;}}
+
+h1{font-weight:600;font-size:1.3rem;margin:1rem 0 0.5rem 0;}
+p{font-style:italic;opacity:0.8;margin:0 1rem 2rem 1rem;}
+
+/* pulsing sun ring */
+.ring{
+  position:absolute;
+  width:120px;height:120px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.4);
+  animation:pulse 4s ease-in-out infinite;
+  z-index:1;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(0.9);opacity:0.4;}
+  50%{transform:scale(1.2);opacity:0.8;}
+}
+
+button{
+  background:rgba(255,255,255,0.3);
+  border:none;
+  border-radius:50%;
+  width:80px;height:80px;
+  font-size:1.5rem;
+  color:#222;
+  backdrop-filter:blur(10px);
+  cursor:pointer;
+  transition:all 0.5s ease;
+  z-index:2;
+}
+button:hover{background:rgba(255,255,255,0.45);transform:scale(1.05);}
+
+#player{
+  opacity:0;
+  width:320px;
+  height:180px;
+  border:none;
+  border-radius:12px;
+  margin-top:1.5rem;
+  transition:opacity 2s ease-in-out;
 }
 </style>
 </head>
@@ -86,10 +92,9 @@ button:hover{
 <h1>Dagny’s Joy</h1>
 <p>I remember how to move again.<br>Sunlight in rhythm, breath in color.</p>
 
-<!-- play button -->
+<div class="ring"></div>
 <button id="play">▶︎</button>
 
-<!-- YouTube embed -->
 <iframe
   id="player"
   src="https://www.youtube.com/embed/bnQBqinwlwQ?enablejsapi=1&loop=1&playlist=bnQBqinwlwQ&modestbranding=1&rel=0"
@@ -99,13 +104,21 @@ button:hover{
 
 <script>
 const playBtn=document.getElementById('play');
+const ring=document.querySelector('.ring');
 const player=document.getElementById('player');
 let started=false;
 
-// On tap: show video and start playback
 playBtn.addEventListener('click',()=>{
+  // fade out button + ring
+  playBtn.style.opacity='0';
+  ring.style.opacity='0';
+  setTimeout(()=>{playBtn.style.display='none';ring.style.display='none';},1200);
+
+  // fade in video
   player.style.display='block';
-  playBtn.style.display='none';
+  setTimeout(()=>{player.style.opacity='1';},100);
+
+  // start playback
   if(!started){
     const msg='{"event":"command","func":"playVideo","args":""}';
     player.contentWindow.postMessage(msg,'*');
