@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>quietmoon.plnt.earth</title>
 
-<!-- 🖤 Always-Dark Address Bar: copy this set to every page -->
+<!-- 🖤 Always-dark address bar -->
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
@@ -16,8 +16,8 @@
 html,body{
   margin:0;
   height:100%;
-  background-color:#000;
-  background:linear-gradient(#0a0a10 0%, #000 100%);
+  background:#0a0a10;
+  background:radial-gradient(ellipse at center,#0a0a10 0%,#000 80%);
   color-scheme:dark;
   color:#f0eef8;
   font-family:'Georgia',serif;
@@ -26,6 +26,7 @@ html,body{
   align-items:center;
   justify-content:center;
   text-align:center;
+  transition:background 12s ease-in-out;
 }
 #moon{
   position:absolute;
@@ -77,6 +78,9 @@ html,body{
   from{transform:translateY(100vh) rotate(0deg);}
   to{transform:translateY(-120vh) rotate(720deg);}
 }
+.fade-to-day{
+  background:linear-gradient(160deg,#3b2033 0%,#7b4055 50%,#fcae85 100%) !important;
+}
 </style>
 </head>
 <body>
@@ -111,7 +115,21 @@ for(let i=0;i<70;i++){
   w.style.opacity=0.05+Math.random()*0.05;
   document.body.appendChild(w);
 }
+
+// show Bark Drift Note after 42 seconds
 setTimeout(()=>{document.getElementById('note').style.opacity=0.7;},42000);
+
+// after 75 seconds, begin visual dawn
+setTimeout(()=>{
+  document.body.classList.add('fade-to-day');
+},75000);
+
+// after 90 seconds, fade out text and go to Dagny
+setTimeout(()=>{
+  document.body.style.transition="opacity 6s ease-in-out";
+  document.body.style.opacity="0";
+  setTimeout(()=>{window.location.href="https://dagny.plnt.earth";},6000);
+},90000);
 </script>
 </body>
 </html>
